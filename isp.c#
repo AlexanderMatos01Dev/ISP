@@ -1,11 +1,11 @@
-// Interfaz para impresión
-public interface IPrint
+// Interfaz para impresoras básicas
+public interface IPrinter
 {
     void Print(Document doc);
 }
 
-// Interfaz para escaneo
-public interface IScan
+// Interfaz para impresoras avanzadas que hereda de IPrinter
+public interface IAdvancedPrinter : IPrinter
 {
     void Scan(Document doc);
 }
@@ -18,7 +18,7 @@ public class Document
 }
 
 // Clase para impresoras básicas
-public class SimplePrinter : IPrint
+public class SimplePrinter : IPrinter
 {
     public void Print(Document doc)
     {
@@ -27,7 +27,7 @@ public class SimplePrinter : IPrint
 }
 
 // Clase para impresoras multifunción
-public class MultiFunctionPrinter : IPrint, IScan
+public class MultiFunctionPrinter : IAdvancedPrinter
 {
     public void Print(Document doc)
     {
@@ -47,10 +47,10 @@ public class Program
     {
         Document doc = new Document { Name = "My Document", Description = "Sample document for testing" };
 
-        IPrint simplePrinter = new SimplePrinter();
+        IPrinter simplePrinter = new SimplePrinter();
         simplePrinter.Print(doc);
 
-        MultiFunctionPrinter multiFunctionPrinter = new MultiFunctionPrinter();
+        IAdvancedPrinter multiFunctionPrinter = new MultiFunctionPrinter();
         multiFunctionPrinter.Print(doc);
         multiFunctionPrinter.Scan(doc);
     }

@@ -1,0 +1,57 @@
+// Interfaz para impresión
+public interface IPrint
+{
+    void Print(Document doc);
+}
+
+// Interfaz para escaneo
+public interface IScan
+{
+    void Scan(Document doc);
+}
+
+// Clase para Document
+public class Document
+{
+    public string Name { get; set; }
+    public string Description { get; set; }
+}
+
+// Clase para impresoras básicas
+public class SimplePrinter : IPrint
+{
+    public void Print(Document doc)
+    {
+        Console.WriteLine($"Printing document: {doc.Name}");
+    }
+}
+
+// Clase para impresoras multifunción
+public class MultiFunctionPrinter : IPrint, IScan
+{
+    public void Print(Document doc)
+    {
+        Console.WriteLine($"Printing document: {doc.Name}");
+    }
+
+    public void Scan(Document doc)
+    {
+        Console.WriteLine($"Scanning document: {doc.Name}");
+    }
+}
+
+// Código cliente para probar la implementación
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        Document doc = new Document { Name = "My Document", Description = "Sample document for testing" };
+
+        IPrint simplePrinter = new SimplePrinter();
+        simplePrinter.Print(doc);
+
+        MultiFunctionPrinter multiFunctionPrinter = new MultiFunctionPrinter();
+        multiFunctionPrinter.Print(doc);
+        multiFunctionPrinter.Scan(doc);
+    }
+}
